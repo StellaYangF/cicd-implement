@@ -64,4 +64,4 @@ CI/CD 是一种通过在应用开发阶段引入自动化来频繁向客户交�
 ## 工作流图示
 
 ![cicd-flow](./assets/cicd-flow.jpg)
-![cicd-full-flow](./assets/cicd_2.png)
+![cicd-full-flow](./assets/cicd-full.jpg)
