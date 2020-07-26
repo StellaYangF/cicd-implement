@@ -12,6 +12,7 @@ This repository aims to implement CICD.
 * [工作流图示](#工作流图示)
 * [Docker](#Docker)
 * [Jenkins](#Jenkins)
+* [GitLab](#GitLab)
 
 ## CI&CD简介
 
@@ -162,6 +163,7 @@ docker build -t local/jenkins .
 将Jenkins用户目录外挂到宿主机内，先新建一个 /home/jenkins 目录，并设置权限：
 
 ```bash
+# 创建 Jenkins 工作目录
 mkdir /home/jenkins
 chown -R 1000 /home/jenkins/
 ```
@@ -256,3 +258,102 @@ docker restart jenkins
 
 我们点击 Jenkins 首页 -> 左侧导航 -> 新建任务 -> 构建一个自由风格的软件项目
 
+
+## GitLab
+
+### What
+
+* 项目管理和代码托管平台
+* 可通过 Web 界面进行访问公开的或者私人项目。
+
+### 拉取 GitLab 镜像
+
+这里拉取 gitlab-ce 社区版镜像
+
+```bash
+docker pull gitlab/gitlab-ce
+```
+
+### 创建 GitLab 容器
+
+使用 docker CLI 启动一个新的 GitLab 容器
+
+```bash
+#创建 Gitlab 工作目录
+mkdir /home/gitlab 
+
+docker run -itd -p 443:443 \
+-p 8899:8899 \
+-p 333:333 \
+--name gitlab \
+--restart always \
+-v /home/gitlab/config:/etc/gitlab \
+-v /home/gitlab/logs:/var/log/gitlab \
+-v /home/gitlab/data:/var/opt/gitlab \
+gitlab/gitlab-ce
+```
+
+备注：
+* --restart: 当 Docker 重启时，容器自动启动，否则就需要使用 docker restart 启动 
+* gitlab端口映射规则：最好内外端口映射一致，gitlab 会根据你的配置文件调整服务端口。
+* 如外部访问 8899，内外都配置 8899 一般 GitLab 有三个端口要使用：ssh，https，主服务地址。 ssh 默认是 22，这里我改为了 333，下方配置文件内也要改为 333
+
+在防火墙添加 333 和 8899 端口的放行，并重载防火墙:
+
+```bash
+firewall-cmd --zone=public --add-port=333/tcp --permanent
+firewall-cmd --zone=public --add-port=8899/tcp --permanent
+systemctl reload firewalld
+```
+
+### 修改 GitLab 配置文件
+
+容器启动后，我们需要修改 GitLab 配置文件，修改 GitLab 主服务地址和 SSH 服务地址
+
+```bash
+vi /home/gitlab/config/gitlab.rb
+```
+
+在文件内增加三条配置：
+
+* external_url: 外部服务访问地址
+* gitlab_rails['gitlab_ssh_host']：SSH 代码拉取地址
+* gitlab_rails['gitlab_shell_ssh_port']：SSH 代码拉取端口    
+
+```bash
+external_url 'http://192.168.1.37:8899'
+gitlab_rails['gitlab_ssh_host'] = '192.168.1.37'
+gitlab_rails['gitlab_shell_ssh_port'] = SSH端口
+```
+
+如果修改SSH端口
+
+SSH 默认的端口是 22 。这里内外分开，将 GitLab 容器内SSH端口改为了 333 。
+
+先进入 GitLab 容器，直接编辑 /assets/sshd_config 和 /etc/ssh/sshd_config 这两个文件即可。修改最上方的 Port 字段。
+
+```bash
+docker exec -it gitlab /bin/bash
+vim /assets/sshd_config
+vim /etc/ssh/sshd_config
+```
+
+接着重启 GitLab
+
+```bash
+docker restart gitlab
+```
+
+### 启动 GitLab
+
+访问 宿主机:端口 ，查看Gitlab启动情况，如果显示 502 ，则代表正在启动中。第一次启动时间可能会有些长。如显示以下界面，代表启动成功。
+
+![gitlab-waiting](./assets/gitlab-waiting.png)
+
+修改密码后，默认管理员是 admin ，登录进入即可
+
+![gitlab-ok](./assets/gitlab-ok.jpg)
+
+注册成功
+
+![register-done](./assets/gitlab-reg.jpg)
