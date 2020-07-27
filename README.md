@@ -378,3 +378,7 @@ docker run -itd -p 80:80 --name jenkins-test \
   --restart always \
   nginx
 ```
+
+打开 192.168.1.41
+
+![nginx](./assets/nginx.jpg)
