@@ -13,6 +13,7 @@ This repository aims to implement CICD.
 * [Docker](#Docker)
 * [Jenkins](#Jenkins)
 * [GitLab](#GitLab)
+* [Nginx](#Nginx)
 
 ## CI&CD简介
 
@@ -357,3 +358,23 @@ docker restart gitlab
 注册成功
 
 ![register-done](./assets/gitlab-reg.jpg)
+
+## Nginx
+
+### 安装
+
+用docker安装即可：
+```js
+docker pull nginx
+```
+
+接着启动一个 Nginx 容器，将配置文件，资源文件，日志文件挂载到宿主机的 /home/nginx
+
+```js
+mkdir /home/nginx
+docker run -itd -p 80:80 --name jenkins-test \
+  -v /home/nginx/html:/usr/share/nginx/html \
+  -v /home/nginx/logs:/var/log/nginx \
+  --restart always \
+  nginx
+```
