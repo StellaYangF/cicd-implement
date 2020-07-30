@@ -151,6 +151,7 @@ ssh root@192.168.1.41 "tar zxvf ~/vue-cli-demo.tar && mv dist/* /home/nginx/html
 
 打开新机器的页面，如果访问成功代表部署成功。
 
+![deploy-ok](./assets/deploy-ok.png)
 ![done](./assets/nginx-done.jpg)
 
 ## Terms
