@@ -322,8 +322,8 @@ vi /home/gitlab/config/gitlab.rb
 * gitlab_rails['gitlab_shell_ssh_port']：SSH 代码拉取端口    
 
 ```bash
-external_url 'http://192.168.1.37:8899'
-gitlab_rails['gitlab_ssh_host'] = '192.168.1.37'
+external_url 'http://192.168.1.42:8899'
+gitlab_rails['gitlab_ssh_host'] = '192.168.1.42'
 gitlab_rails['gitlab_shell_ssh_port'] = SSH端口
 ```
 
@@ -382,3 +382,4 @@ docker run -itd -p 80:80 --name jenkins-test \
 打开 192.168.1.41
 
 ![nginx](./assets/nginx.jpg)
+
