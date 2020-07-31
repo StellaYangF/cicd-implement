@@ -66,7 +66,7 @@ exit;
 ![ssh_keygen](./assets/ssh_keygen.jpg)
 ![rsa](./assets/rsa.jpg)
 
-执行后，我们生成的私钥公钥文件存放在了 **~/.ssh** 目录下。其中， **id_rsa** 为私钥， **id_rsa.pub** 为公钥。
+执行后，生成的私钥公钥文件存放在了 **~/.ssh** 目录下。其中， **id_rsa** 为私钥， **id_rsa.pub** 为公钥。
 
 ### Jenkins 端配置私钥
 
@@ -98,7 +98,7 @@ cat ~/.ssh/id_rsa.pub
 
 ### 配置任务
 
-在上面，我们在分别配置了公钥和私钥用来做 SSH 免密登录。接下来我们的代码拉取，也用 SSH 的方式拉取。
+在上面，在分别配置了公钥和私钥用来做 SSH 免密登录。接下来代码拉取，也用 SSH 的方式拉取。
 
 新建一个任务，选择 **自由风格的软件项目**。创建完成后，找到 **源码管理**，点击 **Git**。
 
@@ -116,10 +116,10 @@ cat ~/.ssh/id_rsa.pub
 
 ### 配置 Nginx 端公钥
 
-上面我们讲到，使用Jenkins做自动化构建，但缺少部署一环。
-我们新创建一个服务器，只存放一个 Nginx 服务。在这里，nginx的安装方式不限，可以用docker也可以直接安装。
+上面讲到，使用Jenkins做自动化构建，但缺少部署一环。
+新创建一个服务器，只存放一个 Nginx 服务。在这里，nginx的安装方式不限，可以用docker也可以直接安装。
 
-我们在Nginx服务器内，使用 ssh-keygen -t rsa 生成公钥和私钥。接着 在 .ssh/authorized_keys 文件夹下，创建一个 authorized_keys 文件。将我们Jenkins容器端的公钥拷贝进 authorized_keys 文件内。
+在Nginx服务器内，使用 ssh-keygen -t rsa 生成公钥和私钥。接着 在 .ssh/authorized_keys 文件夹下，创建一个 authorized_keys 文件。将Jenkins容器端的公钥拷贝进 authorized_keys 文件内。
 
 ```bash
 ssh-keygen -t rsa
@@ -130,9 +130,9 @@ vi authorized_keys
 
 ### 修改 Jenkins 配置
 
-编辑我们的 Jenkins 任务，新增加几条 shell 命令。
+编辑 Jenkins 任务，新增加几条 shell 命令。
 
-在我们 build 结束后，先将dist文件打包为压缩包，然后通过 linux scp 命令上传至Nginx服务器。接着用 ssh 命令远程操控解压到 Nginx 目录即可。
+在 build 结束后，先将dist文件打包为压缩包，然后通过 linux scp 命令上传至Nginx服务器。接着用 ssh 命令远程操控解压到 Nginx 目录即可。
 
 ```bash
 node -v
