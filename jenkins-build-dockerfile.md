@@ -106,4 +106,9 @@ StrictHostKeyChecking: https://cikeblog.com/ssh-cant-established.html
 
 * Dockerfile构建镜像
 * 上传镜像到制品库
-* 远程执行命令拉取镜像，停止容器，删除容器，启动新拉取的镜像
+* 远程执行命令拉取镜像，停止容器，删除容器，启动新拉取的镜
+
+成功
+
+![deploy-done](./assets/deploy-done.jpg)
+
