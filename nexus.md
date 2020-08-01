@@ -135,6 +135,9 @@ systemctl restart docker
 
 ```bash
 docker login 服务IP:端口
+docker login 192.168.1.42:8082
+Username: admin
+Password: 1
 ```
 
 如果提示：**Login Succeeded** 则代表登录成功。
@@ -216,3 +219,6 @@ docker push 192.168.1.42:8082:local/jenkins
     * r 4 可读
     * w 2 可写
     * x 1 可执行
+* dh -f
+    * df命令用于显示目前在Linux系统上的文件系统的磁盘使用情况统计。
+    * --human-readable 使用人类可读的格式(预设值是不加这个选项的...)
