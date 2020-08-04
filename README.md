@@ -14,6 +14,7 @@ This repository aims to implement CICD.
 * [Jenkins](#Jenkins)
 * [GitLab](#GitLab)
 * [Nginx](#Nginx)
+* [Summary](#Summary)
 
 ## CI&CD简介
 
@@ -383,3 +384,6 @@ docker run -itd -p 80:80 --name jenkins-test \
 
 ![nginx](./assets/nginx.jpg)
 
+## Summary
+
+![summary](./assets/summary.jpg)
