@@ -436,7 +436,7 @@ docker rm -f ansible
 
 DONE
 
-![ansible_done](./assets/ansible_done.png)
+![ansible_success](./assets/ansible_success.png)
 
 ## BUG
 
