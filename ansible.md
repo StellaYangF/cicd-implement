@@ -434,6 +434,18 @@ docker exec -i ansible ansible-playbook -e "timestamp=$timestamp" /root/playbook
 docker rm -f ansible
 ```
 
+结果：
+
+```bash
+
+```
+
 DONE
 
 ![ansible_done](./assets/ansible_done.png)
+
+## BUG
+
+* [WARNING]: Invalid characters were found in group names but not replaced, use
+-vvvv to see details
+  解决：将 hosts 文件中的 [服务名] 出现的 `-`去掉，如：fe-servers => servers
