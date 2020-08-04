@@ -434,12 +434,6 @@ docker exec -i ansible ansible-playbook -e "timestamp=$timestamp" /root/playbook
 docker rm -f ansible
 ```
 
-结果：
-
-```bash
-
-```
-
 DONE
 
 ![ansible_done](./assets/ansible_done.png)
