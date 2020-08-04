@@ -295,6 +295,7 @@ ansible_ssh_pass="123456"
       
 ```
 
+![ansible_9](./assets/ansible_9.jpg)
 
 * hosts: 指定在哪个主机组执行该任务集合。 
 * all 代表全部主机
